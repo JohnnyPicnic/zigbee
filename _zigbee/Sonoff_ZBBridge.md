@@ -66,20 +66,14 @@ Read [Zigbee](http://tasmota.github.io/docs/Zigbee) documentation for complete g
 ## For Home Assistant (ZHA)
 This mode creates a TCP bridge from the zigbee module to Home Assistant. In this case Tasmota is only relaying all the messages from the zigbee module to ZHA and **you cannot use any Zigbee commands in Tasmota console in this mode. All setup needs to be done from Home Assistant ZHA integratioon.**
 
-After Zigbee firmware is flashed and confirmed working in ZIgbee2Tasmota mode, apply the template:
+After Zigbee firmware is flashed and confirmed working in ZIgbee2Tasmota mode, apply the template in console:
 
 ```json
-{"NAME":"ZHA ZBBridge","GPIO":[56,208,0,209,59,58,0,0,0,0,0,0,17],"FLAG":0,"BASE":18}
-```
-
-Create a rule in Tasmota to start TCPBridge on boot:
-```console
-Rule1 ON System#Boot do TCPStart 8888 endon
+backlog rule1 on system#boot do TCPStart 8888 endon ; rule1 1 ; template {"NAME":"Sonoff ZHABridge","GPIO":[56,208,0,209,59,58,0,0,0,0,0,0,17],"FLAG":0,"BASE":18} ; module 0
 ```
 
 > You can change `8888` to a port you prefer.
 
-Enable rule with `Rule1 1` and restart ZbBridge.
 
 In Home Assistant (requires version 0.113+) go to **Configuration - Integrations**, click the **+** icon, search for ZHA integration and select it. 
 
